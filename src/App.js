@@ -1,23 +1,46 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Header from './components/Header';
+import Body from './components/Body';
+import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes} from 'react-router-dom';
+import Restaurant from './components/Restaurant';
+import appStore from './store/AppStore';
+import { Provider } from 'react-redux';
+import Cart from './components/Cart';
+const appRouter = createBrowserRouter([
+  {
+ path : '/',
+ element : <Body/>
+ },
+ {
+  path : 'rest/:id',
+  element : <Restaurant/>
+  },
+ {
+  path : '/cart',
+  element : <Cart/>
+  }
+])
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="mx-auto">
+      <Provider store = {appStore} >
+      <BrowserRouter>
+        <Header />
+          <Routes>
+            <Route path="/" element={<Body/>} />
+            <Route path="/rest/:id" element={<Restaurant/>} />
+            <Route path="/cart" element={<Cart/>} />
+          </Routes>
+        </BrowserRouter>
+        </Provider>
+      {/* <Provider store = {appStore} >
+        <BrowserRouter>
+        <Header/>
+        < RouterProvider router={appRouter} />
+        </BrowserRouter>
+      </Provider> */}
     </div>
   );
 }
