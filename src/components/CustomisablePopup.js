@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, isPopupOpen } from "../store/CartSlice";
+import veg from "../veg.png";
+import nonVeg from "../nonveg.png";
 
 const CustomisablePopup = () => {
   const dispatch = useDispatch();
@@ -50,7 +52,14 @@ const CustomisablePopup = () => {
                             variations?.map((v) => {
                               return (
                                 <div className="flex justify-between w-full mb-2 font-semibold text-gray-600 ">
-                                  {v.name}
+                                  <div className="flex gap-2">
+                                    {v?.isVeg === 1 ? (
+                                      <img className="w-6" src={veg} />
+                                    ) : (
+                                      <img className="w-6" src={nonVeg} />
+                                    )}
+                                    <span>{v?.name}</span>
+                                  </div>
                                   <input
                                     className="checked:border-indigo-500 w-4"
                                     type="radio"
@@ -76,7 +85,14 @@ const CustomisablePopup = () => {
                           choices.map((v) => {
                             return (
                               <div className="flex justify-between w-full mb-2 font-semibold text-gray-600">
-                                {v?.name}
+                                <div className="flex gap-2">
+                                  {v?.isVeg === 1 ? (
+                                    <img className="w-6" src={veg} />
+                                  ) : (
+                                    <img className="w-6" src={nonVeg} />
+                                  )}
+                                  <span>{v?.name}</span>
+                                </div>
                                 <div className="flex gap-4">
                                   {v?.price && <div>+₹{v?.price / 100}</div>}
                                   <input
@@ -96,7 +112,7 @@ const CustomisablePopup = () => {
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex  sm:px-6">
               <button
-                className="inline-flex w-full justify-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-grey-700 sm:ml-3 sm:w-auto"
+                className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-grey-700 sm:ml-3 sm:w-auto"
                 onClick={(e) => removeItem()}
               >
                 Cancel

@@ -3,15 +3,20 @@ import { SEARCHLOCATION, ADDRESSLATLONG } from "../utils/constant";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isPopupOpen } from "../store/CartSlice";
+import {
+  OpenPopup,
+  setLatLong,
+  setLocationChange,
+  setcurrentLocation,
+} from "../store/dataSlice";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
   const [searchSuggestion, setSearchSuggestion] = useState([]);
-  const [location, setLocation] = useState(null);
   const [error, setError] = useState(null);
-  const isPopup = useSelector((state) => state.cart.isPopup);
   const dispatch = useDispatch();
+  const popFlag = useSelector((state) => state.data.popUp);
   //call function everytime if text will update in search bar
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,25 +39,6 @@ const Search = () => {
     }
   }, [debouncedValue]); // Calls the function when debouncedValue changes
 
-  const getCurrentLocation = () => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
-        },
-        (err) => {
-          setError(
-            "You have blocked Swiggy from tracking your location. To use this, change your location settings in browser."
-          );
-        }
-      );
-    } else {
-      setError(
-        "You have blocked Swiggy from tracking your location. To use this, change your location settings in browser."
-      );
-    }
-  };
   const getAddressLatLong = async (address) => {
     let encodeAddress = address.map((a) => a.value).join("+");
     try {
@@ -63,7 +49,9 @@ const Search = () => {
       if (data && data.length > 0) {
         const latitude = data[0].lat;
         const longitude = data[0].lon;
-        setLocation({ latitude, longitude });
+        dispatch(setLatLong({ latitude, longitude }));
+        dispatch(OpenPopup());
+        dispatch(setLocationChange());
         setError("");
       } else {
         setError("Unable to find location");
@@ -72,13 +60,18 @@ const Search = () => {
       setError("Error occurred while fetching data");
     }
   };
+  const currentLocationChange = () => {
+    dispatch(OpenPopup());
+    dispatch(setcurrentLocation());
+    dispatch(setLocationChange());
+  };
   const closePopup = () => {
-    dispatch(isPopupOpen(false));
+    dispatch(OpenPopup());
     document.body.classList.add("overflow-visible");
   };
   return (
     <>
-      {isPopup && (
+      {popFlag && (
         <div
           className="relative z-10"
           aria-labelledby="modal-title"
@@ -111,7 +104,7 @@ const Search = () => {
                       </div>
                       {searchQuery == "" && (
                         <div className="m-6 border w-96 p-5">
-                          <button onClick={getCurrentLocation}>
+                          <button onClick={currentLocationChange}>
                             <div className="flex gap-3">
                               <div className="text-xl">📍</div>
                               <div>
@@ -128,38 +121,35 @@ const Search = () => {
                       )}
                       <div>
                         {searchSuggestion &&
-                          searchSuggestion.map((item) => {
+                          searchSuggestion.map((item, index) => {
                             return (
                               <>
-                                <Link to="/">
-                                  {" "}
-                                  <div className="m-3 border-b border-dashed w-72 p-5 border-gray-400 ml-8-9">
-                                    <button
-                                      onClick={(e) =>
-                                        getAddressLatLong(item?.terms)
-                                      }
-                                    >
-                                      <div className="flex gap-3">
-                                        <div className="text-xl">📍</div>
-                                        <div>
-                                          <div className="text-sm font-medium text-left hover:text-orange-500">
-                                            {" "}
-                                            {
-                                              item?.structured_formatting
-                                                ?.main_text
-                                            }
-                                          </div>
-                                          <div className="text-gray-400 text-xs text-left">
-                                            {
-                                              item?.structured_formatting
-                                                ?.secondary_text
-                                            }
-                                          </div>
+                                <div className="m-3 border-b border-dashed w-72 p-5 border-gray-400 ml-8-9">
+                                  <button
+                                    onClick={(e) =>
+                                      getAddressLatLong(item?.terms)
+                                    }
+                                  >
+                                    <div className="flex gap-3">
+                                      <div className="text-xl">📍</div>
+                                      <div>
+                                        <div className="text-sm font-medium text-left hover:text-orange-500">
+                                          {" "}
+                                          {
+                                            item?.structured_formatting
+                                              ?.main_text
+                                          }
+                                        </div>
+                                        <div className="text-gray-400 text-xs text-left">
+                                          {
+                                            item?.structured_formatting
+                                              ?.secondary_text
+                                          }
                                         </div>
                                       </div>
-                                    </button>
-                                  </div>
-                                </Link>
+                                    </div>
+                                  </button>
+                                </div>
                               </>
                             );
                           })}

@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { isPopupOpen } from "../store/CartSlice";
+import {
+  OpenPopup,
+  setLocationChange,
+  setcurrentLocation,
+} from "../store/dataSlice";
+import useCurrentLocation from "../hooks/useGetLocation";
 
 const Header = () => {
   const cartData = useSelector((state) => state.cart.cartPayload);
+  const locationChange = useSelector((state) => state.data.locationChange);
   const dispatch = useDispatch();
-  console.log("cartData", cartData.length);
+  const PopupClick = () => {
+    dispatch(OpenPopup());
+    if (locationChange) {
+      dispatch(setLocationChange());
+      dispatch(setcurrentLocation());
+    }
+  };
+  useCurrentLocation();
   return (
     <div className="flex gap-4 px-6 py-4 shadow-md sticky top-0 bg-white z-10 font-bold text-gray-600">
       <div className="flex w-3/12 gap-20 items-center">
@@ -33,14 +47,12 @@ const Header = () => {
             </svg>
           </div>
         </Link>
-        <Link to="/search">
-          <div
-            className="cursor-pointer hover:text-orange-500"
-            onClick={(e) => dispatch(isPopupOpen(true))}
-          >
-            Other
-          </div>
-        </Link>
+        <div
+          className="cursor-pointer hover:text-orange-500"
+          onClick={PopupClick}
+        >
+          Other
+        </div>
       </div>
       <div className="flex w-9/12 justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer hover:text-orange-500">
@@ -136,7 +148,7 @@ const Header = () => {
               <span className="">
                 {" "}
                 <svg
-                  class="ppAwf vZTPh hover:fill-orange-500"
+                  className="ppAwf vZTPh hover:fill-orange-500"
                   viewBox="-1 0 37 32"
                   height="20"
                   width="20"

@@ -5,10 +5,13 @@ const BestCuisinesNearMe = ({ brands }) => {
   return (
     <div className="grid grid-cols-4 gap-8">
       {brands &&
-        brands?.map((brand) => {
+        brands?.map((brand, index) => {
           const { text, link } = brand;
           return (
-            <div className="border-2 p-4 text-center rounded-2xl text-sm font-bold text-gray-700 cursor-pointer">
+            <div
+              key={index}
+              className="border-2 p-4 text-center rounded-2xl text-sm font-bold text-gray-700 cursor-pointer"
+            >
               {text}
             </div>
           );

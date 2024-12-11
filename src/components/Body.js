@@ -5,41 +5,32 @@ import TopRestaurants from "./TopRestaurants";
 import TopOnlineDeliveryResto from "./TopOnlineDeliveryResto";
 import BestCuisinesNearMe from "./BestCuisinesNearMe";
 import Footer from "./Footer";
+import useGetResturant from "../hooks/useGetResturant";
+import { useSelector } from "react-redux";
+import Search from "./Search";
 
 const Body = () => {
-  const [foodList, setFoodList] = useState([]);
-  useEffect(() => {
-    getFoodList();
-  }, []);
-  const getFoodList = async () => {
-    const data = await fetch(FOODLIST);
-    const json = await data.json();
-    setFoodList(json?.data?.cards);
-  };
+  useGetResturant();
+  const popFlag = useSelector((state) => state.data.popUp);
+  const foodList = useSelector((state) => state.data.apiResponse);
+  console.log("foodList", foodList);
   return (
     <div className="mx-auto w-5/6 px-4">
-      <div className="text-xl font-bold mt-4">What's on your mind?</div>
       <div className="border-b-2">
-        <Food info={foodList[0]} />
+        {foodList && <Food info={foodList[0]} />}
       </div>
       <div className="mt-8 border-b-2">
-        <div className="text-xl font-bold">Top restaurants</div>
-        <div>
-          <TopRestaurants info={foodList[1]} />
-        </div>
+        <div>{foodList && <TopRestaurants info={foodList[1]} />}</div>
       </div>
       <div className="mt-8 border-b-2">
-        <div className="text-xl font-bold">Top restaurant chains in City</div>
-        <div>
-          <TopOnlineDeliveryResto info={foodList[1]} />
-        </div>
+        <div>{foodList && <TopOnlineDeliveryResto info={foodList[1]} />}</div>
       </div>
       <div className="border-b-2">
         {foodList &&
-          foodList?.map((restoType) => {
+          foodList?.map((restoType, index) => {
             const { title, brands } = restoType?.card?.card;
             return (
-              <div className="mt-8">
+              <div className="mt-8" key={index}>
                 {(title === "Best Cuisines Near Me" ||
                   title === "Explore Every Restaurants Near Me") && (
                   <div>
@@ -54,6 +45,7 @@ const Body = () => {
       <div>
         <Footer />
       </div>
+      <div className="">{popFlag && <Search />}</div>
     </div>
   );
 };

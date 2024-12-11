@@ -6,14 +6,21 @@ import RestaurantDetails from "./RestaurantDetails";
 import RestaurantDeals from "./RestaurantDeals";
 import RestaurantRecommended from "./RestaurantRecommended";
 import RecommendedFooter from "./RecommendedFooter";
+import { useSelector } from "react-redux";
 
 const Restaurant = () => {
   const restId = useParams();
   const [restaurantData, setRestaurantData] = useState([]);
+  const latlong = useSelector((state) => state.data.latLong);
+
   const getRestaurantDetails = async () => {
-    const data = await fetch(RESTAURANTDETAILS.replace("REST_ID", restId.id));
+    const data = await fetch(
+      RESTAURANTDETAILS.replace("latitude", latlong.latitude)
+        .replace("longitude", latlong.longitude)
+        .replace("REST_ID", restId.id)
+    );
     const json = await data.json();
-    if (json) setRestaurantData(json.data.cards);
+    setRestaurantData(json.data.cards);
   };
   useEffect(() => {
     getRestaurantDetails();
