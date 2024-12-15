@@ -3,7 +3,7 @@ export const BASEIMGURL =
 export const FOODLIST =
   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=latitude&lng=longitude&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 export const RESTAURANTDETAILS =
-  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&latitude&lng=longitude&restaurantId=REST_ID";
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&&lat=latitude&lng=longitude&restaurantId=REST_ID";
 export const SEARCHLOCATION =
   "https://www.swiggy.com/dapi/misc/place-autocomplete?input=INPUT_DATA&types=";
 export const ADDRESSLATLONG =

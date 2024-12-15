@@ -8,6 +8,7 @@ import {
   setLatLong,
   setLocationChange,
   setcurrentLocation,
+  setDisplayAddress,
 } from "../store/dataSlice";
 
 const Search = () => {
@@ -49,9 +50,11 @@ const Search = () => {
       if (data && data.length > 0) {
         const latitude = data[0].lat;
         const longitude = data[0].lon;
+        const displayName = data[0].display_name;
         dispatch(setLatLong({ latitude, longitude }));
         dispatch(OpenPopup());
         dispatch(setLocationChange());
+        dispatch(setDisplayAddress(displayName));
         setError("");
       } else {
         setError("Unable to find location");
@@ -124,7 +127,7 @@ const Search = () => {
                           searchSuggestion.map((item, index) => {
                             return (
                               <>
-                                <div className="m-3 border-b border-dashed w-72 p-5 border-gray-400 ml-8-9">
+                                <div className="my-3 border-b border-dashed w-72 p-5 border-gray-400 ml-4">
                                   <button
                                     onClick={(e) =>
                                       getAddressLatLong(item?.terms)
@@ -134,7 +137,6 @@ const Search = () => {
                                       <div className="text-xl">📍</div>
                                       <div>
                                         <div className="text-sm font-medium text-left hover:text-orange-500">
-                                          {" "}
                                           {
                                             item?.structured_formatting
                                               ?.main_text

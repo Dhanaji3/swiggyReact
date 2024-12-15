@@ -10,7 +10,7 @@ const BestCuisinesNearMe = ({ brands }) => {
           return (
             <div
               key={index}
-              className="border-2 p-4 text-center rounded-2xl text-sm font-bold text-gray-700 cursor-pointer"
+              className=" tracking-tight border-2 p-4 text-center rounded-2xl text-sm font-bold text-gray-600 cursor-pointer"
             >
               {text}
             </div>

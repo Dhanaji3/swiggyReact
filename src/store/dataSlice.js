@@ -11,6 +11,7 @@ const dataSlice = createSlice({
     },
     locationChange: true,
     currentLocation: true,
+    displayAddress: "",
   },
   reducers: {
     addApiResponse: (state, action) => {
@@ -21,6 +22,9 @@ const dataSlice = createSlice({
     },
     setLatLong: (state, action) => {
       state.latLong = action.payload;
+    },
+    setDisplayAddress: (state, action) => {
+      state.displayAddress = action.payload;
     },
     setLocationChange: (state) => {
       state.locationChange = !state.locationChange;
@@ -37,5 +41,6 @@ export const {
   setLatLong,
   setLocationChange,
   setcurrentLocation,
+  setDisplayAddress,
 } = dataSlice.actions;
 export default dataSlice.reducer;

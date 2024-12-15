@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setLatLong } from "../store/dataSlice";
+import { setLatLong, setDisplayAddress } from "../store/dataSlice";
 import React, { useEffect } from "react";
 
 const useCurrentLocation = () => {
@@ -11,6 +11,7 @@ const useCurrentLocation = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           dispatch(setLatLong({ latitude, longitude }));
+          dispatch(setDisplayAddress(""));
         },
         (err) => {
           //  setError("You have blocked Swiggy from tracking your location. To use this, change your location settings in browser.");
