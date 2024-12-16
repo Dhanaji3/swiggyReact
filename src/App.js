@@ -14,6 +14,7 @@ import appStore from "./store/AppStore";
 import { Provider } from "react-redux";
 import Cart from "./components/Cart";
 import Search from "./components/Search";
+import Collection from "./components/Collection";
 // const appRouter = createBrowserRouter([
 //   {
 //  path : '/',
@@ -40,6 +41,7 @@ function App() {
             <Route path="/rest/:id" element={<Restaurant />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/collections/:id" element={<Collection />} />
           </Routes>
         </BrowserRouter>
       </Provider>

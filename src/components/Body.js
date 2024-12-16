@@ -8,12 +8,13 @@ import Footer from "./Footer";
 import useGetResturant from "../hooks/useGetResturant";
 import { useSelector } from "react-redux";
 import Search from "./Search";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   useGetResturant();
   const popFlag = useSelector((state) => state.data.popUp);
   const foodList = useSelector((state) => state.data.apiResponse);
-  console.log("foodList", foodList);
+  const shimmerArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <div className="mx-auto w-5/6 px-4">
       <div className="border-b-2">
@@ -41,6 +42,15 @@ const Body = () => {
               </div>
             );
           })}
+      </div>
+      <div>
+        {!foodList && (
+          <div className="grid grid-cols-3 mt-10">
+            {shimmerArray.map((element, index) => {
+              return <Shimmer key={index} />;
+            })}
+          </div>
+        )}
       </div>
       <div>
         <Footer />

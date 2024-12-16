@@ -14,11 +14,13 @@ const CartDetails = () => {
       {resturantDetail && (
         <Link to={"/rest/" + id}>
           <div className="flex gap-4">
-            <img
-              className="w-14 h-14"
-              src={BASEIMGURL + cloudinary_image_id}
-              alt={name}
-            />
+            {name && (
+              <img
+                className="w-14 h-14"
+                src={BASEIMGURL + cloudinary_image_id}
+                alt={name}
+              />
+            )}
             <span className="border-b-2 border-black">
               <div className="font-bold">{name}</div>
               <div className="text-xs">{area_name}</div>

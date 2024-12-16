@@ -10,13 +10,10 @@ import {
 import useCurrentLocation from "../hooks/useGetLocation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../store/loginSlice";
 
 const Header = () => {
-  const [isSignIn, setIsSignIn] = useState({
-    isSignIn: false,
-    displayName: "",
-    photoURL: "",
-  });
+  const isSignIn = useSelector((state) => state.login.userInfo);
   const cartData = useSelector((state) => state.cart.cartPayload);
   const locationChange = useSelector((state) => state.data.locationChange);
   const displayAddress = useSelector((state) => state.data.displayAddress);
@@ -34,20 +31,15 @@ const Header = () => {
       if (user) {
         // User is signed in
         const { uid, email, displayName, photoURL } = user;
-        setIsSignIn({
-          isSignIn: true,
-          displayName: displayName,
-          photoURL: photoURL,
-        });
-        /*  dispatch(
-              addUser(
-                  {uid: uid, email: email, displayName: displayName, photoURL:photoURL}
-              ));
-              navigate('/browse') */
+        dispatch(
+          addUser({
+            isSignIn: true,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
       } else {
-        // User is signed out
-        /*   dispatch(removeUser())
-              navigate('/') */
+        dispatch(removeUser());
       }
     });
 
@@ -57,11 +49,7 @@ const Header = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setIsSignIn({
-          isSignIn: false,
-          displayName: "",
-          photoURL: "",
-        });
+        dispatch(removeUser());
       })
       .catch((error) => {
         // An error happened.

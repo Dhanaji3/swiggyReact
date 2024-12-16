@@ -8,3 +8,10 @@ export const SEARCHLOCATION =
   "https://www.swiggy.com/dapi/misc/place-autocomplete?input=INPUT_DATA&types=";
 export const ADDRESSLATLONG =
   "https://nominatim.openstreetmap.org/search?q=ADDRESS_DATA&format=json&addressdetails=1";
+export const COLLECTION =
+  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=latitude&lng=longitude&COLLECTION_ID";
+export const LANGUAGE = {
+  en: "en",
+  hi: "hi",
+  de: "de",
+};
