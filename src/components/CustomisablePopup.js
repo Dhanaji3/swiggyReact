@@ -8,9 +8,7 @@ const CustomisablePopup = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state?.cart?.cartPayload);
   const isPopup = useSelector((state) => state.cart.isPopup);
-  console.log("cart---", cart);
   const selected = cart[cart?.length - 1];
-  console.log("selected", selected);
   const groups = selected?.variantsV2?.variantGroups;
   const addOns = selected?.addons;
   const removeItem = () => {

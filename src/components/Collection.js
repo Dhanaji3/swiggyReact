@@ -9,7 +9,6 @@ const Collection = () => {
   const { id } = useParams();
   const location = useLocation();
   const url = location.search.replace("?collection_id", "collection");
-  console.log("queryParams", url);
   const latlong = useSelector((state) => state.data.latLong);
   useEffect(() => {
     getCollectionData();

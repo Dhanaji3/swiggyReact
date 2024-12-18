@@ -27,7 +27,6 @@ const useGetResturant = () => {
     }
   };
   useEffect(() => {
-    console.log("popFlag", locationChange);
     locationChange && fetchResturant();
   }, [locationChange]);
 };

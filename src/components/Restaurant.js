@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RESTAURANTDETAILS } from "../utils/constant";
 import RestaurantHeading from "./RestaurantHeading";
 import RestaurantDetails from "./RestaurantDetails";
@@ -12,7 +12,7 @@ const Restaurant = () => {
   const restId = useParams();
   const [restaurantData, setRestaurantData] = useState([]);
   const latlong = useSelector((state) => state.data.latLong);
-
+  const cartData = useSelector((state) => state.cart.cartPayload);
   const getRestaurantDetails = async () => {
     const data = await fetch(
       RESTAURANTDETAILS.replace("latitude", latlong.latitude)
@@ -42,6 +42,21 @@ const Restaurant = () => {
             }
           />
           <RecommendedFooter />
+        </div>
+      )}
+      {cartData?.length > 0 && (
+        <div className="p-4 sticky bg-lime-700 flex justify-between text-white font-bold bottom-0 text-sm">
+          <span>{cartData?.length + " " + "item Added"}</span>
+          <Link to="/cart">
+            <span className="flex items-center">
+              VIEW CART
+              <img
+                className="ml-2 w-4 h-4"
+                src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_18,h_18/ChatbotAssets/Checkout_Cart"
+                alt="crt img"
+              />
+            </span>
+          </Link>
         </div>
       )}
     </div>

@@ -12,24 +12,6 @@ import Shimmer from "./Shimmer";
 
 const Body = () => {
   useGetResturant();
-
-  //Data Scapping
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-  // const getData = async () => {
-  //   const data = await fetch(
-  //     "https://www.swiggy.com/city/jaipur/best-restaurants"
-  //   );
-  //   const html = await data.text();
-  //   const parser = new DOMParser();
-  //   const doc = parser.parseFromString(html, "text/html");
-  //   const scriptTag = doc.querySelector('script[type="application/ld+json"]');
-  //   const jsonData = JSON.parse(scriptTag.textContent);
-  //   const restaurantsData = jsonData.itemListElement;
-  //   console.log("json scrapping", restaurantsData);
-  // };
   const popFlag = useSelector((state) => state.data.popUp);
   const foodList = useSelector((state) => state.data.apiResponse);
   const shimmerArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];

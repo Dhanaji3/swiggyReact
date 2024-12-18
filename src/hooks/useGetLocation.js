@@ -22,7 +22,6 @@ const useCurrentLocation = () => {
     }
   };
   useEffect(() => {
-    console.log("11111", currentLocation);
     currentLocation && fetchLocation();
   }, [currentLocation]);
 };

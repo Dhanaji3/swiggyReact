@@ -13,6 +13,7 @@ const dataSlice = createSlice({
     currentLocation: true,
     displayAddress: "",
     language: "en",
+    nearMeResponse: null,
   },
   reducers: {
     addApiResponse: (state, action) => {
@@ -36,6 +37,9 @@ const dataSlice = createSlice({
     changeLanguage: (state, action) => {
       state.language = action.payload;
     },
+    nearMeResponse: (state, action) => {
+      state.nearMeResponse = action.payload;
+    },
   },
 });
 
@@ -47,5 +51,6 @@ export const {
   setcurrentLocation,
   setDisplayAddress,
   changeLanguage,
+  nearMeResponse,
 } = dataSlice.actions;
 export default dataSlice.reducer;

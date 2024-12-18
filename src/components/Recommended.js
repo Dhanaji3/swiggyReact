@@ -6,6 +6,7 @@ import bestseller from "../bestseller.png";
 import { addToCart, isPopupOpen } from "../store/CartSlice";
 
 const Recommended = ({ recommend }) => {
+  const [accFlag, setAccFlag] = useState(true);
   const { title, itemCards, categories } = recommend;
   const itemCard = itemCards ? itemCards : categories?.[0]?.itemCards;
   const isPopup = useSelector((state) => state.cart.isPopup);
@@ -27,13 +28,25 @@ const Recommended = ({ recommend }) => {
     dispatch(addToCart(detail));
   };
   return (
-    <div className="pt-4 pb-8">
-      <div className="font-bold text-lg">
-        {title + " "}
-        {"(" + itemCards?.length + ")"}
+    <div className="pt-4 border-t">
+      <div className="font-bold text-lg flex justify-between items-center">
+        {title + " " + "(" + itemCards?.length + ")"}
+        <buton className="cursor-pointer" onClick={(e) => setAccFlag(!accFlag)}>
+          {accFlag && (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+              <path d="m12 6.586-8.707 8.707 1.414 1.414L12 9.414l7.293 7.293 1.414-1.414L12 6.586z" />
+            </svg>
+          )}
+          {!accFlag && (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+              <path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z" />
+            </svg>
+          )}
+        </buton>
       </div>
       <div className="divide-y divide-slate-300">
         {itemCard?.length > 0 &&
+          accFlag &&
           itemCard?.map((rec) => {
             const {
               name,

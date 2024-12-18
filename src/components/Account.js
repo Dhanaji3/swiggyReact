@@ -99,16 +99,22 @@ const Account = () => {
               <div>
                 {isSignInForm && (
                   <p className="text-gray-500 text-sm my-4">
-                    Enter login details or{" "}
-                    <button onClick={() => setIsSignInForm((prev) => !prev)}>
+                    {"Enter login details or "}
+                    <button
+                      className="font-bold"
+                      onClick={() => setIsSignInForm((prev) => !prev)}
+                    >
                       create an account
                     </button>
                   </p>
                 )}
                 {!isSignInForm && (
                   <p className="text-gray-500 text-sm my-4">
-                    Sign up or{" "}
-                    <button onClick={() => setIsSignInForm((prev) => !prev)}>
+                    {"Sign up or "}
+                    <button
+                      className="font-bold"
+                      onClick={() => setIsSignInForm((prev) => !prev)}
+                    >
                       log in to your account
                     </button>
                   </p>
