@@ -105,7 +105,7 @@ const Search = () => {
                           onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
-                      {searchQuery == "" && (
+                      {searchQuery === "" && (
                         <div className="m-6 border w-96 p-5">
                           <button onClick={currentLocationChange}>
                             <div className="flex gap-3">

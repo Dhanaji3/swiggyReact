@@ -16,44 +16,60 @@ const Body = () => {
   const foodList = useSelector((state) => state.data.apiResponse);
   const shimmerArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
-    <div className="mx-auto w-5/6 px-4">
-      <div className="border-b-2">
-        {foodList && <Food info={foodList[0]} />}
-      </div>
-      <div className="mt-8 border-b-2">
-        <div>{foodList && <TopRestaurants info={foodList[1]} />}</div>
-      </div>
-      <div className="mt-8 border-b-2">
-        <div>{foodList && <TopOnlineDeliveryResto info={foodList[1]} />}</div>
-      </div>
-      <div className="border-b-2">
-        {foodList &&
-          foodList?.map((restoType, index) => {
-            const { title, brands } = restoType?.card?.card;
-            return (
-              <div className="mt-8" key={index}>
-                {(title === "Best Cuisines Near Me" ||
-                  title === "Explore Every Restaurants Near Me") && (
-                  <div>
-                    <div className="text-xl font-bold py-4">{title}</div>
-                    <BestCuisinesNearMe brands={brands} />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-      </div>
-      <div>
-        {!foodList && (
-          <div className="grid grid-cols-3 mt-10">
-            {shimmerArray.map((element, index) => {
-              return <Shimmer key={index} />;
+    <div className="">
+      <div className="mx-auto  w-5/6">
+        <div className="border-b-2">
+          {foodList && <Food info={foodList[0]} />}
+        </div>
+        <div className="mt-8 border-b-2">
+          <div>{foodList && <TopRestaurants info={foodList[1]} />}</div>
+        </div>
+        <div className="mt-8 border-b-2">
+          <div>{foodList && <TopOnlineDeliveryResto info={foodList[1]} />}</div>
+        </div>
+        <div className="border-b-2">
+          {foodList &&
+            foodList?.map((restoType, index) => {
+              const { title, brands } = restoType?.card?.card;
+              return (
+                <div className="mt-8" key={index}>
+                  {(title === "Best Cuisines Near Me" ||
+                    title === "Explore Every Restaurants Near Me") && (
+                    <div>
+                      <div className="text-xl font-bold py-4">{title}</div>
+                      <BestCuisinesNearMe brands={brands} />
+                    </div>
+                  )}
+                </div>
+              );
             })}
-          </div>
-        )}
+        </div>
+        <div>
+          {!foodList && (
+            <div className="grid grid-cols-3 mt-10">
+              {shimmerArray.map((element, index) => {
+                return <Shimmer key={index} />;
+              })}
+            </div>
+          )}
+        </div>
       </div>
-      <div>
-        <Footer />
+      <div className="bg-gray-200 ">
+        <div className=" p-8 mt-8 w-9/12 mx-auto font-bold text-xl border-t border-t-black">
+          {foodList &&
+            foodList?.map((restoType, index) => {
+              const { id } = restoType?.card?.card;
+              return (
+                <div className="" key={index}>
+                  {(id === "app_install_links" || id === "footer_content") && (
+                    <div>
+                      <Footer footerInfo={restoType?.card?.card} />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </div>
       </div>
       <div className="">{popFlag && <Search />}</div>
     </div>
