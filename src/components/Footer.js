@@ -12,7 +12,6 @@ const Footer = ({ footerInfo }) => {
     cities,
   } = footerInfo;
   const displayCities = cities?.slice(0, 7);
-  console.log("FooterInfo", footerInfo);
   return (
     <div className="">
       {id === "app_install_links" && (

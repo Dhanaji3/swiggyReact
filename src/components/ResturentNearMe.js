@@ -4,7 +4,6 @@ import CommonCard from "./CommonCard";
 
 const ResturentNearMe = () => {
   const nearMeData = useSelector((state) => state.data.nearMeResponse);
-  console.log("nearMeData", nearMeData);
   //   const topResto =
   //     nearMeData?.card?.card?.gridElements?.infoWithStyle?.restaurants;
   return (
